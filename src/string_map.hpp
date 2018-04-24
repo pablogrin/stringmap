@@ -11,11 +11,11 @@ string_map<T>::string_map(){
     _amountOfKeys = 0;
 }
 
-//template<typename T>
-//string_map<T>::~string_map(){
-//    this->clear();
-//    delete root;
-//}
+template<typename T>
+string_map<T>::~string_map(){
+    this->clear();
+    delete root;
+}
 
 template<typename T>
 string_map<T>::string_map(const string_map& other){
@@ -105,7 +105,7 @@ T& string_map<T>::at(const string_map<T>::key_type& key){
 }
 
 template<typename T>
-const T& string_map<T>::at(const string_map<T>::key_type& key) const{
+const T& string_map<T>::cat(const string_map<T>::key_type& key) const{
     int index = 0;
     Node* current = root;
     while (index != key.size() && current->children.count(key[index]) != 0){

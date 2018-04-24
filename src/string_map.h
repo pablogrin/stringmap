@@ -19,6 +19,9 @@ using namespace std;
  * - Has a copy constructor (with copy(T) complexity)
  * - Has an operator== (with cmp(T) complexity)
  * - Operator[] is only allowed if T has a default constructor
+ *
+ * Map preconditions:
+ * - Empty string ("") is not used as a key to store a value.
  */
 template < typename T >
 class string_map {
@@ -42,7 +45,7 @@ public:
      *
      * \complexity{\O(sn * S)}
      */
-    //~string_map();
+    ~string_map();
 
     /** @brief Constructs a map by copying another one.
      *
@@ -102,7 +105,7 @@ public:
      *
      *  \complexity{\O(S)}
      */ 
-    const T& at(const key_type& key) const;
+    const T& cat(const key_type& key) const;
 
     /** @brief Empties the map
      */
