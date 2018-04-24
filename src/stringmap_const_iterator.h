@@ -1,11 +1,11 @@
-#ifndef string_map_const_iterators_h
-#define string_map_const_iterators_h
+#ifndef stringmap_const_iterators_h
+#define stringmap_const_iterators_h
 
-#include "string_map.h"
+#include "stringmap.h"
 #include <iostream>
 
 template<class T>
-class string_map<T>::const_iterator{
+class stringmap<T>::const_iterator{
 
 public:
 
@@ -17,11 +17,11 @@ public:
     const_iterator();
 
     /**
-    * @brief Constructor from a string_map
+    * @brief Constructor from a stringmap
     *
     * \complexity{\O(1)}
     */
-    const_iterator(const string_map& map);
+    const_iterator(const stringmap& map);
 
     /**
     * @brief Copy constructor
@@ -31,7 +31,7 @@ public:
     */
     const_iterator(const const_iterator&);
 
-    using value_type = const string_map::value_type;
+    using value_type = const stringmap::value_type;
     using iterator_category = std::forward_iterator_tag;
     using reference = value_type&;
     using pointer = value_type*;
@@ -79,11 +79,11 @@ public:
 
 
 private:
-    friend class string_map;
-    const string_map* map;
+    friend class stringmap;
+    const stringmap* map;
     pointer currentPair;
 };
 
 
-#include "string_map_const_iterator.hpp"
-#endif // string_map_const_iterator_h
+#include "stringmap_const_iterator.hpp"
+#endif // stringmap_const_iterator_h

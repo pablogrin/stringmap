@@ -1,5 +1,5 @@
-#ifndef STRING_MAP_STRING_MAP_H
-#define STRING_MAP_STRING_MAP_H
+#ifndef STRINGMAP_STRINGMAP_H
+#define STRINGMAP_STRINGMAP_H
 
 #include <cassert>
 #include <string>
@@ -24,7 +24,7 @@ using namespace std;
  * - Empty string ("") is not used as a key to store a value.
  */
 template < typename T >
-class string_map {
+class stringmap {
 public:
     typedef string key_type;
     typedef T mapped_type;
@@ -39,32 +39,32 @@ public:
      *
      * \complexity{\O(1)}
      */
-    string_map();
+    stringmap();
 
     /** @brief Destroys map.
      *
      * \complexity{\O(sn * S)}
      */
-    ~string_map();
+    ~stringmap();
 
     /** @brief Constructs a map by copying another one.
      *
      * \complexity{\O(sn * S * copy(T))}
      */
-    string_map(const string_map<T>& other);
+    stringmap(const stringmap<T>& other);
 
     /** @brief Assignment operator
      *
      * \complexity{\O(sn * S * copy(T))}
      */
-    string_map& operator=(const string_map& other);
+    stringmap& operator=(const stringmap& other);
 
     /** @brief Comparison operators
      *
      * \complexity{\O(sn * S * cmp(T))}
      */
-    bool operator==(const string_map& other) const;
-    bool operator!=(const string_map& other) const;
+    bool operator==(const stringmap& other) const;
+    bool operator!=(const stringmap& other) const;
 
     /** @brief Amount of appearances for a given key (0 or 1)
      *  @param key
@@ -192,7 +192,7 @@ private:
 
 };
 
-#include "string_map.hpp"
-#include "string_map_iterator.h"
-#include "string_map_const_iterator.h"
-#endif //STRING_MAP_STRING_MAP_H
+#include "stringmap.hpp"
+#include "stringmap_iterator.h"
+#include "stringmap_const_iterator.h"
+#endif //STRINGMAP_STRINGMAP_H

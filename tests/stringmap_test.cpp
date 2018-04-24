@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 #include <list>
-#include "../src/string_map.h"
+#include "../src/stringmap.h"
 
-TEST(string_map_test, test_construct) {
-    string_map<int> m1,m2;
-    string_map<int> m3(m1);
-    string_map<string_map<string> > m4;
+TEST(stringmap_test, test_construct) {
+    stringmap<int> m1,m2;
+    stringmap<int> m3(m1);
+    stringmap<stringmap<string> > m4;
 }
 
-TEST(string_map_test, test_define) {
-    string_map<int> m1;
+TEST(stringmap_test, test_define) {
+    stringmap<int> m1;
     EXPECT_EQ(m1.size(),0);
     EXPECT_TRUE(m1.empty());
     m1.insert(pair<string, int>("hello", 1));
@@ -32,8 +32,8 @@ TEST(string_map_test, test_define) {
     EXPECT_EQ(m1.at("goodbye"),7);
 }
 
-TEST(string_map_test, test_compare) {
-    string_map<int> m1,m2;
+TEST(stringmap_test, test_compare) {
+    stringmap<int> m1,m2;
     EXPECT_TRUE(m1==m2);
     m1["hello"] = 123;
     m1["world"] = 456;
@@ -45,8 +45,8 @@ TEST(string_map_test, test_compare) {
     EXPECT_FALSE(m1==m2);
 }
 
-TEST(string_map_test, test_erase) {
-    string_map<int> m1;
+TEST(stringmap_test, test_erase) {
+    stringmap<int> m1;
     EXPECT_TRUE(m1.empty());
     m1["hello"] = 123;
     EXPECT_TRUE(m1.count("hello"));
@@ -65,8 +65,8 @@ TEST(string_map_test, test_erase) {
     EXPECT_TRUE(m1.empty());
 }
 
-TEST(string_map_test, test_clear) {
-    string_map<int> m1;
+TEST(stringmap_test, test_clear) {
+    stringmap<int> m1;
     m1["hello"] = 1;
     m1["he"] = 3;
     EXPECT_TRUE(m1.count("hello"));
@@ -78,8 +78,8 @@ TEST(string_map_test, test_clear) {
     EXPECT_TRUE(m1.empty());
 }
 
-TEST(string_map_test, test_iterator) {
-    string_map<int> m1;
+TEST(stringmap_test, test_iterator) {
+    stringmap<int> m1;
 
     m1["world"] = 2;
     m1["aaaa"] = 0;

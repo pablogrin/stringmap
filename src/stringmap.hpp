@@ -1,24 +1,24 @@
 #include <algorithm>
-#include "string_map.h"
+#include "stringmap.h"
 #include <iostream>
 
 
 // public functions //
 
 template<typename T>
-string_map<T>::string_map(){
+stringmap<T>::stringmap(){
     root = new Node(nullptr);
     _amountOfKeys = 0;
 }
 
 template<typename T>
-string_map<T>::~string_map(){
+stringmap<T>::~stringmap(){
     this->clear();
     delete root;
 }
 
 template<typename T>
-string_map<T>::string_map(const string_map& other){
+stringmap<T>::stringmap(const stringmap& other){
     root = new Node(nullptr);
     _amountOfKeys = 0;
     auto it = other.cbegin();
@@ -30,7 +30,7 @@ string_map<T>::string_map(const string_map& other){
 
 
 template<typename T>
-string_map<T>& string_map<T>::operator=(const string_map& other){
+stringmap<T>& stringmap<T>::operator=(const stringmap& other){
     this->clear();
     auto it = other.cbegin();
     while (it != other.cend()){
@@ -42,7 +42,7 @@ string_map<T>& string_map<T>::operator=(const string_map& other){
 }
 
 template<typename T>
-bool string_map<T>::operator==(const string_map<T>& other) const{
+bool stringmap<T>::operator==(const stringmap<T>& other) const{
     if (this->size() != other.size()) {
         return false;
     } else {
@@ -62,12 +62,12 @@ bool string_map<T>::operator==(const string_map<T>& other) const{
 }
 
 template<typename T>
-bool string_map<T>::operator!= (const string_map<T>& other) const{
+bool stringmap<T>::operator!= (const stringmap<T>& other) const{
     return !(*this==other);
 }
 
 template<typename T>
-typename string_map<T>::size_type string_map<T>::count(const string_map<T>::key_type& key) const{
+typename stringmap<T>::size_type stringmap<T>::count(const stringmap<T>::key_type& key) const{
     if (cfind(key) == cend()) {
         return 0;
     } else {
@@ -76,17 +76,17 @@ typename string_map<T>::size_type string_map<T>::count(const string_map<T>::key_
 }
 
 template<typename T>
-size_t string_map<T>::size() const{
+size_t stringmap<T>::size() const{
     return this->_amountOfKeys;
 }
 
 template<typename T>
-bool string_map<T>::empty() const{
+bool stringmap<T>::empty() const{
     return this->root->children.empty();
 }
 
 template<typename T>
-T& string_map<T>::operator[](const string_map<T>::key_type& key){
+T& stringmap<T>::operator[](const stringmap<T>::key_type& key){
     if (find(key) == end()) {
         insert(value_type(key, T()));
     }
@@ -94,7 +94,7 @@ T& string_map<T>::operator[](const string_map<T>::key_type& key){
 }
 
 template<typename T>
-T& string_map<T>::at(const string_map<T>::key_type& key){
+T& stringmap<T>::at(const stringmap<T>::key_type& key){
     int index = 0;
     Node* current = root;
     while (index != key.size() && current->children.count(key[index]) != 0) {
@@ -105,7 +105,7 @@ T& string_map<T>::at(const string_map<T>::key_type& key){
 }
 
 template<typename T>
-const T& string_map<T>::cat(const string_map<T>::key_type& key) const{
+const T& stringmap<T>::cat(const stringmap<T>::key_type& key) const{
     int index = 0;
     Node* current = root;
     while (index != key.size() && current->children.count(key[index]) != 0){
@@ -116,7 +116,7 @@ const T& string_map<T>::cat(const string_map<T>::key_type& key) const{
 }
 
 template<typename T>
-void string_map<T>::clear() {
+void stringmap<T>::clear() {
     auto it = this->begin();
     while (it != end()){
         it = erase(it);
@@ -124,7 +124,7 @@ void string_map<T>::clear() {
 }
 
 template<typename T>
-typename string_map<T>::iterator string_map<T>::begin(){
+typename stringmap<T>::iterator stringmap<T>::begin(){
     if (this->empty()){
         return end();
     } else {
@@ -133,14 +133,14 @@ typename string_map<T>::iterator string_map<T>::begin(){
 }
 
 template<typename T>
-typename string_map<T>::iterator string_map<T>::end(){
-    auto it = string_map<T>::iterator(*this);
+typename stringmap<T>::iterator stringmap<T>::end(){
+    auto it = stringmap<T>::iterator(*this);
     it.currentPair = nullptr;
     return it;
 }
 
 template<typename T>
-typename string_map<T>::const_iterator string_map<T>::cbegin() const{
+typename stringmap<T>::const_iterator stringmap<T>::cbegin() const{
     if (this->empty()){
         return cend();
     } else {
@@ -149,14 +149,14 @@ typename string_map<T>::const_iterator string_map<T>::cbegin() const{
 }
 
 template<typename T>
-typename string_map<T>::const_iterator string_map<T>::cend() const{
-    auto it = string_map<T>::const_iterator(*this);
+typename stringmap<T>::const_iterator stringmap<T>::cend() const{
+    auto it = stringmap<T>::const_iterator(*this);
     it.currentPair = nullptr;
     return it;
 }
 
 template<typename T>
-typename string_map<T>::iterator string_map<T>::find(const string_map<T>::key_type& key){
+typename stringmap<T>::iterator stringmap<T>::find(const stringmap<T>::key_type& key){
     Node* nodeFound = findNode(key);
     if (nodeFound == nullptr) {
         return end();
@@ -169,26 +169,26 @@ typename string_map<T>::iterator string_map<T>::find(const string_map<T>::key_ty
 }
 
 template<typename T>
-typename string_map<T>::const_iterator string_map<T>::cfind(const string_map<T>::key_type& key) const{
+typename stringmap<T>::const_iterator stringmap<T>::cfind(const stringmap<T>::key_type& key) const{
     Node* nodeFound = findNode(key);
     if (nodeFound == nullptr) {
         return cend();
     }
     else {
-        auto it = string_map<T>::const_iterator(*this);
+        auto it = stringmap<T>::const_iterator(*this);
         it.currentPair = nodeFound->value;
         return it;
     }
 }
 
 template<typename T>
-pair<typename string_map<T>::iterator, bool> string_map<T>::insert(const string_map<T>::value_type& val){
+pair<typename stringmap<T>::iterator, bool> stringmap<T>::insert(const stringmap<T>::value_type& val){
     bool inserted = false;
     string key = val.first;
     T valor = val.second;
     auto it = find(key);
     if (it != end()) {
-        pair<string_map<T>::iterator, bool> res = make_pair(this->end(), inserted);
+        pair<stringmap<T>::iterator, bool> res = make_pair(this->end(), inserted);
         return res;
     } else {
         int index = 0;
@@ -204,7 +204,7 @@ pair<typename string_map<T>::iterator, bool> string_map<T>::insert(const string_
         current->value = new value_type(val);
         inserted = true;
         this->_amountOfKeys++;
-        pair<string_map<T>::iterator, bool> res;
+        pair<stringmap<T>::iterator, bool> res;
         auto it = iterator(*this);
         it.currentPair = current->value;
         res = make_pair(it, inserted);
@@ -213,7 +213,7 @@ pair<typename string_map<T>::iterator, bool> string_map<T>::insert(const string_
 }
 
 template<typename T>
-typename string_map<T>::size_type string_map<T>::erase(const string_map<T>::key_type& key) {
+typename stringmap<T>::size_type stringmap<T>::erase(const stringmap<T>::key_type& key) {
     string editedKey = key;
     Node* current = findNode(key);
     auto branch = getBranch(key);
@@ -243,7 +243,7 @@ typename string_map<T>::size_type string_map<T>::erase(const string_map<T>::key_
 }
 
 template <typename T>
-typename string_map<T>::iterator string_map<T>::erase(string_map::iterator pos) {
+typename stringmap<T>::iterator stringmap<T>::erase(stringmap::iterator pos) {
     auto key = pos.currentPair->first;
     auto it = ++pos;
     erase(key);
@@ -253,7 +253,7 @@ typename string_map<T>::iterator string_map<T>::erase(string_map::iterator pos) 
 // private functions //
 
 template<typename T>
-string string_map<T>::firstKey() const {
+string stringmap<T>::firstKey() const {
     Node* currentNode = root;
     string key = "";
 
@@ -267,7 +267,7 @@ string string_map<T>::firstKey() const {
 }
 
 template<typename T>
-string string_map<T>::nextKey(string currentKey) const {
+string stringmap<T>::nextKey(string currentKey) const {
     Node* currentNode = findNode(currentKey);
     if(currentNode == nullptr){
         return "";
@@ -338,9 +338,9 @@ string string_map<T>::nextKey(string currentKey) const {
 }
 
 template<typename T>
-typename string_map<T>::Node* string_map<T>::findNode(string key) const {
+typename stringmap<T>::Node* stringmap<T>::findNode(string key) const {
     int index = 0;
-    string_map<T>::Node* current = root;
+    stringmap<T>::Node* current = root;
     while (index < key.size() && current->children.count(key[index]) != 0) {
         current = current->children[key[index]];
         index++;
@@ -353,10 +353,10 @@ typename string_map<T>::Node* string_map<T>::findNode(string key) const {
 }
 
 template<typename T>
-vector<typename string_map<T>::Node*> string_map<T>::getBranch(string key) const {
-    vector<string_map<T>::Node*> branch = vector<string_map<T>::Node*>();
+vector<typename stringmap<T>::Node*> stringmap<T>::getBranch(string key) const {
+    vector<stringmap<T>::Node*> branch = vector<stringmap<T>::Node*>();
     int index = 0;
-    string_map<T>::Node* current = root;
+    stringmap<T>::Node* current = root;
     while (index != key.size() && current->children.count(key[index]) != 0) {
         branch.push_back(current);
         current = current->children[key[index]];
