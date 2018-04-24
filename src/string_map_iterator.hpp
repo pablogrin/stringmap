@@ -12,7 +12,7 @@ template<typename T>
 string_map<T>::iterator::iterator(const string_map& map) {
     string key = map.firstKey();
     if(key != ""){
-        this->currentPair = map.findNode(map.primeraClave())->value;
+        this->currentPair = map.findNode(map.firstKey())->value;
     }else{
         this->currentPair = nullptr;
     }
@@ -21,7 +21,7 @@ string_map<T>::iterator::iterator(const string_map& map) {
 
 template<typename T>
 string_map<T>::iterator::iterator(const iterator& other) {
-    this->map = other.mapa;
+    this->map = other.map;
     this->currentPair = other.currentPair;
 }
 
@@ -47,11 +47,15 @@ typename string_map<T>::iterator& string_map<T>::iterator::operator++() {
     return *this;
 }
 
-template<typename T>
-bool string_map<T>::iterator::operator==(const string_map<T>::iterator& other) const{
-    return (other.map == this->map) &&
-            (other.currentPair->first == this->currentPair->first) &&
-            (other.currentPair->second == this->currentPair->second);
-}
-
+//template<typename T>
+//bool string_map<T>::iterator::operator==(const typename string_map<T>::iterator& other) const{
+//    return (other.map == this->map) &&
+//            (other.currentPair->first == this->currentPair->first) &&
+//            (other.currentPair->second == this->currentPair->second);
+//}
+//
+//template<typename T>
+//bool string_map<T>::iterator::operator!=(const typename string_map<T>::iterator& other) const{
+//    return !(other == *this);
+//}
 

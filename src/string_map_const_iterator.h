@@ -4,7 +4,8 @@
 #include "string_map.h"
 #include <iostream>
 
-class const_iterator{
+template<class T>
+class string_map<T>::const_iterator{
 
 public:
 
@@ -62,14 +63,19 @@ public:
     *
     * \complexity{\O(1)}
     */
-    bool operator==(const const_iterator& other) const;
+    bool operator==(const const_iterator& other) const{
+        return (other.map == this->map) &&
+               (other.currentPair == this->currentPair);
+    };
 
     /**
     * @brief Difference operator.
     *
     * \complexity{\O(1)}
     */
-    bool operator!=(const const_iterator& other) const;
+    bool operator!=(const const_iterator& other) const{
+        return !(other == *this);
+    }
 
 
 private:
@@ -78,5 +84,6 @@ private:
     pointer currentPair;
 };
 
-#include "string_map_const_iterator.h"
+
+#include "string_map_const_iterator.hpp"
 #endif // string_map_const_iterator_h

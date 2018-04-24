@@ -42,13 +42,13 @@ public:
      *
      * \complexity{\O(sn * S)}
      */
-    ~string_map();
+    //~string_map();
 
     /** @brief Constructs a map by copying another one.
      *
      * \complexity{\O(sn * S * copy(T))}
      */
-    string_map(const string_map& other);
+    string_map(const string_map<T>& other);
 
     /** @brief Assignment operator
      *
@@ -141,7 +141,7 @@ public:
      *
      *  \complexity{\O(S)}
      */
-   const_iterator find(const key_type &key) const;
+   const_iterator cfind(const key_type &key) const;
 
     /** @brief inserts a key/value pair into the map
      *
@@ -190,4 +190,6 @@ private:
 };
 
 #include "string_map.hpp"
+#include "string_map_iterator.h"
+#include "string_map_const_iterator.h"
 #endif //STRING_MAP_STRING_MAP_H

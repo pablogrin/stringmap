@@ -4,9 +4,9 @@
 #include "string_map.h"
 #include <iostream>
 
-using namespace std;
 
-class iterator{
+template<class T>
+class string_map<T>::iterator{
 
 public:
 
@@ -64,14 +64,19 @@ public:
     *
     * \complexity{\O(1)}
     */
-    bool operator==(const iterator& other) const;
+    bool operator==(const iterator& other) const{
+        return (other.map == this->map) &&
+               (other.currentPair == this->currentPair);
+    };
 
     /**
     * @brief Difference operator.
     *
     * \complexity{\O(1)}
     */
-    bool operator!=(const iterator& other) const;
+    bool operator!=(const iterator& other) const{
+        return !(other == *this);
+    }
 
 
 private:
@@ -80,5 +85,5 @@ private:
     pointer currentPair;
 };
 
-#include "string_map_iterator.h"
+#include "string_map_iterator.hpp"
 #endif // string_map_iterator_h
