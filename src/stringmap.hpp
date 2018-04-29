@@ -272,68 +272,58 @@ string stringmap<T>::nextKey(string currentKey) const {
     if(currentNode == nullptr){
         return "";
     }
-    std::string key = currentKey;
-    if (currentNode->children.size() > 0) { //current key is substring of nexy key
-        bool noMeMovi = true;
-        while ((currentNode->children.size() != 0 && currentNode->value == nullptr) || noMeMovi) {
-            noMeMovi = false;
-            auto firstPair = currentNode->children.begin();
-            char firstChar = (*firstPair).first;
-            key += firstChar;
-            currentNode = currentNode->children[firstChar];
+    if (!currentNode->children.empty()) { //current key is substring of nexy key
+        currentNode = currentNode->children.begin()->second;
+        while (!currentNode->children.empty() && currentNode->value == nullptr) {
+            currentNode = currentNode->children.begin()->second;
         }
-        return key;
-    } else { //current key is not substring of nexy key
+        return currentNode->value->first;
+    } else { //current key is not substring of next key
         vector<Node*> branch = getBranch(currentKey);
         unsigned long index = branch.size() - 1;
         currentNode = branch[index];
+        branch.pop_back();
         bool sideSteps = false;
-        while (index > 0 && !(sideSteps)) {
+        while (index > 0 && !sideSteps){
             auto it = currentNode->children.begin();
-            while (it->first < key.back() && it != currentNode->children.end()) {
+            while (it->first < currentKey[index] && it != currentNode->children.end()){
                 it++;
             }
             if (it != currentNode->children.end()) {
                 it++;
             }
-            key.pop_back();
             if (it == currentNode->children.end()) {
                 currentNode = branch[index - 1];
                 index--;
             } else {
-                char c = it->first;
-                key.push_back(c);
-                sideSteps = true;
                 currentNode = currentNode->children[it++->first];
+                sideSteps = true;
             }
         }
-
-        if (currentNode == nullptr) {
-            return "";
+        auto it = currentNode->children.begin();
+        if (index == 0){
+            while (it->first < currentKey[index] && it != currentNode->children.end()){
+                it++;
+            }
+            if (it != currentNode->children.end()) {
+                it++;
+            }
+            if (it == currentNode->children.end()) {
+                return "";
+            } else {
+                currentNode = it->second;
+                while (!currentNode->children.empty() && currentNode->value == nullptr) {
+                    currentNode = currentNode->children.begin()->second;
+                }
+                return currentNode->value->first;
+            }
         } else {
-            if (index != 0) { //longest common substring not empty
-                while (currentNode->value == nullptr) {
-                    key += (*currentNode->children.begin()).first;
-                    currentNode = (*currentNode->children.begin()).second;
-                }
-            } else { //longest common substring is ""
-                auto it = root->children.begin();
-                while (it->first <= key[0] && it != root->children.end()) {
-                    it++;
-                }
-                if(it == root->children.end()){
-                    return "";
-                }
-                key = "";
-                key += it->first;
-                currentNode = root->children[it->first];
-                while (currentNode->value == nullptr) {
-                    key += (*currentNode->children.begin()).first;
-                    currentNode = (*currentNode->children.begin()).second;
-                }
+            currentNode = it->second;
+            while (!currentNode->children.empty() && currentNode->value == nullptr) {
+                currentNode = currentNode->children.begin()->second;
             }
+            return currentNode->value->first;
         }
-        return key;
     }
 }
 

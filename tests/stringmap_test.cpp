@@ -156,5 +156,4 @@ TEST(stringmap_test, test_iterator) {
     for (auto p : m1)
         l5.push_back(p.second);
     EXPECT_EQ(l5,l6);
-
 }
