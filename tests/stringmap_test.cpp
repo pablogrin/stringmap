@@ -112,6 +112,18 @@ TEST(stringmap_test, test_iterator) {
         l3.push_back(p.second);
     EXPECT_EQ(l3,l4);
 
+
+    std::list<int> l5;
+    auto it2 = m1.end();
+    --it2;
+    for (it2 ; it2 != m1.begin(); --it2){
+        int e = it2->second;
+        l5.push_back(e);
+    }
+    l5.push_back(m1.begin()->second);
+    l5.reverse();
+    EXPECT_EQ(l4,l5);
+
     EXPECT_EQ(m1.erase("aaaa"), 1);
 
     /**
@@ -152,8 +164,9 @@ TEST(stringmap_test, test_iterator) {
      *      \-h-e-l-l-o[1]
      */
 
-    std::list<int> l5, l6 = {24,1};
+    std::list<int> l6, l7 = {24,1};
     for (auto p : m1)
-        l5.push_back(p.second);
-    EXPECT_EQ(l5,l6);
+        l6.push_back(p.second);
+    EXPECT_EQ(l6,l7);
 }
+

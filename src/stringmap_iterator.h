@@ -22,7 +22,7 @@ public:
     *
     * \complexity{\O(1)}
     */
-    iterator(const stringmap& map);
+    iterator(stringmap& map);
 
     /**
     * @brief Copy constructor
@@ -88,7 +88,7 @@ public:
 
 private:
     friend class stringmap;
-    const stringmap* map;
+    stringmap* map;
     pointer currentPair;
 };
 

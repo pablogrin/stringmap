@@ -9,7 +9,7 @@ stringmap<T>::iterator::iterator() {
 }
 
 template<typename T>
-stringmap<T>::iterator::iterator(const stringmap& map) {
+stringmap<T>::iterator::iterator(stringmap& map) {
     string key = map.firstKey();
     if(key != ""){
         this->currentPair = map.findNode(map.firstKey())->value;
