@@ -173,6 +173,7 @@ public:
      */
     iterator erase(iterator pos);
 
+
 private:
 
     friend class iterator;
@@ -186,7 +187,9 @@ private:
     Node* root;
     size_t _amountOfKeys;
     string firstKey() const;
+    string lastKey() const;
     string nextKey(string currentKey) const;
+    string previousKey(string currentKey) const;
     Node* findNode(string key) const;
     vector<Node*> getBranch(string key) const;
 

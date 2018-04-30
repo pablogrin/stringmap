@@ -47,4 +47,22 @@ typename stringmap<T>::const_iterator& stringmap<T>::const_iterator::operator++(
     return *this;
 }
 
+template<typename T>
+typename stringmap<T>::const_iterator& stringmap<T>::const_iterator::operator--() {
+    string currentKey = "";
+    if (*this == map->cend()){
+        currentKey = map->lastKey();
+    } else {
+        currentKey = map->previousKey(currentPair->first);
+    }
+    if (currentKey == ""){
+        this->currentPair = nullptr;
+    } else {
+
+        this->currentPair = (map->findNode(currentKey))->value;
+    }
+    return *this;
+}
+
+
 

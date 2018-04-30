@@ -59,6 +59,13 @@ public:
     const_iterator& operator++();
 
     /**
+    * @brief Backward operator.
+    *
+    * \complexity{\O(L)}
+    */
+    const_iterator& operator--();
+
+    /**
     * @brief Equality operator
     *
     * \complexity{\O(1)}

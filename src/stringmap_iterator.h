@@ -60,6 +60,13 @@ public:
     iterator& operator++();
 
     /**
+    * @brief Backward operator.
+    *
+    * \complexity{\O(L)}
+    */
+    iterator& operator--();
+
+    /**
     * @brief Equality operator
     *
     * \complexity{\O(1)}

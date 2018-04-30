@@ -47,3 +47,19 @@ typename stringmap<T>::iterator& stringmap<T>::iterator::operator++() {
     return *this;
 }
 
+template<typename T>
+typename stringmap<T>::iterator& stringmap<T>::iterator::operator--() {
+    string currentKey = "";
+    if (*this == map->end()){
+        currentKey = map->lastKey();
+    } else {
+        currentKey = map->previousKey(currentPair->first);
+    }
+    if (currentKey == ""){
+        this->currentPair = nullptr;
+    } else {
+        this->currentPair = (map->findNode(currentKey))->value;
+    }
+    return *this;
+}
+

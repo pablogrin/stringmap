@@ -267,6 +267,18 @@ string stringmap<T>::firstKey() const {
 }
 
 template<typename T>
+string stringmap<T>::lastKey() const {
+    if (this->empty()){
+        return "";
+    }
+    Node* currentNode = root;
+    while (!currentNode->children.empty()){
+        currentNode = currentNode->children.rbegin()->second;
+    }
+    return currentNode->value->first;
+}
+
+template<typename T>
 string stringmap<T>::nextKey(string currentKey) const {
     Node* currentNode = findNode(currentKey);
     if(currentNode == nullptr){
@@ -324,6 +336,62 @@ string stringmap<T>::nextKey(string currentKey) const {
             }
             return currentNode->value->first;
         }
+    }
+}
+
+
+template<typename T>
+string stringmap<T>::previousKey(string currentKey) const{
+    Node* currentNode = findNode(currentKey);
+    if(currentNode == nullptr){
+        return "";
+    }
+    vector<Node*> branch = getBranch(currentKey);
+    unsigned long index = branch.size() - 1;
+    currentNode = branch[index];
+    bool sideSteps = false;
+    while (index > 0 && !sideSteps){
+        auto it = currentNode->children.rbegin();
+        while (it->first > currentKey[index] && it != currentNode->children.rend()){
+            it++;
+        }
+        if (it != currentNode->children.rend()) {
+            it++;
+        }
+        if (it == currentNode->children.rend()) {
+            if (currentNode->value != nullptr){
+                return currentNode->value->first;
+            }
+            currentNode = branch[index - 1];
+            index--;
+        } else {
+            currentNode = currentNode->children[it++->first];
+            sideSteps = true;
+        }
+    }
+    auto it = currentNode->children.rbegin();
+    if (index == 0){
+        while (it->first > currentKey[index] && it != currentNode->children.rend()){
+            it++;
+        }
+        if (it != currentNode->children.rend()) {
+            it++;
+        }
+        if (it == currentNode->children.rend()) {
+            return "";
+        } else {
+            currentNode = it->second;
+            while (!currentNode->children.empty()) {
+                currentNode = currentNode->children.rbegin()->second;
+            }
+            return currentNode->value->first;
+        }
+    } else {
+        currentNode = it->second;
+        while (!currentNode->children.empty()) {
+            currentNode = currentNode->children.rbegin()->second;
+        }
+        return currentNode->value->first;
     }
 }
 
